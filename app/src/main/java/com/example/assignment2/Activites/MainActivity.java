@@ -43,6 +43,11 @@ public class MainActivity extends AppCompatActivity {
 
 
         ArrayList<String> years = new ArrayList<>();
+        years.add("1990");
+        years.add("1991");
+        years.add("1992");
+        years.add("1993");
+        years.add("1994");
         years.add("1995");
         years.add("1996");
         years.add("1997");
@@ -50,6 +55,8 @@ public class MainActivity extends AppCompatActivity {
         years.add("1999");
         years.add("2000");
         years.add("2001");
+        years.add("2002");
+
 
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
                 android.R.layout.simple_spinner_item, years);
