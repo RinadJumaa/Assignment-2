@@ -38,7 +38,7 @@ public class MainActivity extends AppCompatActivity {
         yearsSpinner();
     }
 
-
+    //dynamic spinner
     private void yearsSpinner() {
 
 
@@ -87,21 +87,18 @@ public class MainActivity extends AppCompatActivity {
         else if (female.isChecked())
             gender = "Female";
 
-        UserInfo userInfo = new UserInfo(name, email, gender, phone, dob);
+        UserInfo userInfo = new UserInfo(name, email, gender, phone, dob); // create new object
 
 
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
         SharedPreferences.Editor editor = prefs.edit();
 
         Gson gson = new Gson();
-        String userString = gson.toJson(userInfo);
-        editor.putString(DATA, userString);
+        String userString = gson.toJson(userInfo); // transfer the object to json using gson
+        editor.putString(DATA, userString); //save it using sharedpreference
         editor.commit();
 
         Toast.makeText(this, "Data Saved: " + userString, Toast.LENGTH_SHORT).show();
-
-
-
 
     }
 
@@ -109,15 +106,17 @@ public class MainActivity extends AppCompatActivity {
 
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
         Gson gson = new Gson();
-        String str = prefs.getString(DATA, "");
-        if(!str.equals("")){
+        String str = prefs.getString(DATA, ""); //get the data in sharedpreference
+
+        if(!str.equals("")){ // if there is a data
 
             UserInfo userInfos = gson.fromJson(str, UserInfo.class);
             edt_name.setText(userInfos.getName());
             edt_phone.setText(userInfos.getPhone());
             edt_email.setText(userInfos.getEmail());
-            String [] strdob = userInfos.getDob().split(" ");
+            String [] strdob = userInfos.getDob().split(" "); // split by space
 
+            //set spinner value by position
             dayspinner.setSelection(getIndex(dayspinner, strdob[0]));
             monthspinner.setSelection(getIndex(monthspinner,strdob[1]));
             year_Spinner.setSelection(getIndex(year_Spinner,strdob[2]));
@@ -129,11 +128,12 @@ public class MainActivity extends AppCompatActivity {
 
         }
 
-        else
+        else //there is no data in sared preference
             Toast.makeText(this, "Data not found", Toast.LENGTH_SHORT).show();
 
     }
 
+    //get the position of the item in a spinner
     private int getIndex(Spinner spinner, String s) {
 
         for(int i = 0; i < spinner.getCount(); i++){
@@ -144,7 +144,6 @@ public class MainActivity extends AppCompatActivity {
         return 0;
 
     }
-
     public void btn_nextPage(View view) {
         Intent intent = new Intent(MainActivity.this, CVinformation.class);
 
